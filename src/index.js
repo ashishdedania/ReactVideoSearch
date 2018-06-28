@@ -4,6 +4,7 @@ import YTSearch from 'youtube-api-search';
 
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail';
 
 const API_KEY = 'AIzaSyBPwV2o6BBb_EA0Ne63C0Z4guKOtOGhVuw';
 
@@ -16,7 +17,7 @@ class App  extends Component{
 
 		this.state = {videos : []};
 
-		YTSearch({key:API_KEY,term:'surfboard'},(videos) => {
+		YTSearch({key:API_KEY,term:'nasa'},(videos) => {
 			//console.log(typeof(data));
 			//console.log(data);
 			/*var videost = Object.keys(videos).map(function(key) {
@@ -38,6 +39,7 @@ class App  extends Component{
 		return( 
 			<div>
 				<SearchBar/>
+				<VideoDetail video = {this.state.videos[0]} />
 				<VideoList videos={this.state.videos}/>
 			</div>
 		);
