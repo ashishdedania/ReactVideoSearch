@@ -1,11 +1,18 @@
 import React from 'react';
 
-const VideoDetail = ({video}) => { console.log(video);
+const VideoDetail = ({video}) => {
+
+	if(!video)
+	{
+		return(<div>Loadning .... </div>)
+	}
+
+
 	const videoId = video.id.videoId;
 	const url     = `http://youtube.com/embed/${videoId}`
 
 	return (
-		<div className='video-detail col-md-8'>
+		<div className='video-details col-md-8'>
 			<div className='embed-responsive-16by9'>
 				<iframe className='embed-responsive-item' src={url}></iframe>
 			</div>

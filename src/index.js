@@ -12,25 +12,25 @@ const API_KEY = 'AIzaSyBPwV2o6BBb_EA0Ne63C0Z4guKOtOGhVuw';
 
 // create simple component, this component should product some HTML
 class App  extends Component{
+	
 	constructor(props){
 		super(props);
 
-		this.state = {videos : []};
+		this.state = {
+			videos : [],
+			selectedVideo : null
+		};
 
-		YTSearch({key:API_KEY,term:'nasa'},(videos) => {
-			//console.log(typeof(data));
-			//console.log(data);
-			/*var videost = Object.keys(videos).map(function(key) {
-		    return [Number(key), videos[key]];*/
-		    this.setState({videos});
-		    //return data;
+		this.videoSearch('technology');
+	}
+
+	videoSearch(term){
+		YTSearch({key:API_KEY,term:term},(videos) => {
+			this.setState({
+				videos : videos,
+				selectedVideo : videos[0]
+			});
 		});
-
-			//console.log(videost);
-			//this.setState({videos});
-			//this.setState({videos : videos});
-		//});
-
 	}
 
 	
@@ -38,9 +38,12 @@ class App  extends Component{
 	render(){
 		return( 
 			<div>
-				<SearchBar/>
-				<VideoDetail video = {this.state.videos[0]} />
-				<VideoList videos={this.state.videos}/>
+				<SearchBar onSearchTermChange = { term => this.videoSearch(term) }/>
+				<VideoDetail video={this.state.selectedVideo} />
+				<VideoList 
+					videos        = {this.state.videos}
+					onVideoSelect = {selectedVideo => this.setState({selectedVideo})}
+				/>	
 			</div>
 		);
 	}	
